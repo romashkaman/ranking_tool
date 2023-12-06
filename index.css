@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: all, 0.35s;
 }
 
 #container {
@@ -47,6 +48,10 @@ img {
   object-fit: contain;
 }
 
+#rankingArea img {
+  border-radius: 10px;
+}
+
 .moveButton {
   padding: 10px;
   margin: 10px;
@@ -71,5 +76,4 @@ img {
 
 .moveButton:active{
   box-shadow: -3px -3px 10px rgb(21, 78, 110),3px 3px 10px rgb(81, 87, 0);
-  transition: all 0.15s;
 }

@@ -6,7 +6,8 @@ const fileInput = document.getElementById("fileSelector"),
       rankingArea = document.createElement("div");
 let   elementCounter = 0,
       previewImageHeight = 100,
-      imageHeight = 350;
+      imageHeight = 350,
+      animationsTransitionTime = 350;
 
 fileInput.addEventListener("change", fileUploader);
 
@@ -101,54 +102,122 @@ function createRankingList () {
   };
 };
 
+// function moveToTheLeft() {
+//   //part for swapping names
+//   const currentRankingBlock = this.parentNode.parentNode;
+//   const previousRankingBlock = currentRankingBlock.previousSibling;
+//   const currentNeededNameParent = currentRankingBlock.firstChild;
+//   const previousNeededNameParent = previousRankingBlock.firstChild;
+//   const currentNameNode = currentNeededNameParent.lastChild;
+//   const previousNameNode = previousNeededNameParent.lastChild;
+
+//   currentNameNode.remove();
+//   previousNameNode.remove();
+
+//   currentNeededNameParent.appendChild(previousNameNode);
+//   previousNeededNameParent.appendChild(currentNameNode);
+  
+//   //part for swapping images
+//   const currentNeededImgParent = currentRankingBlock.childNodes[1];
+//   const previousNeededImgParent = previousRankingBlock.childNodes[1];
+//   const currentImgNode = currentNeededImgParent.firstChild;
+//   const previousImgNode = previousNeededImgParent.firstChild;
+  
+//   currentImgNode.remove();
+//   previousImgNode.remove();
+
+//   currentNeededImgParent.appendChild(previousImgNode);
+//   previousNeededImgParent.appendChild(currentImgNode);
+// };
+
+// function moveToTheRight() {
+//   //part for swapping names
+//   const currentRankingBlock = this.parentNode.parentNode;
+//   const nextRankingBlock = currentRankingBlock.nextSibling;
+//   const currentNeededNameParent = currentRankingBlock.firstChild;
+//   const nextNeededNameParent = nextRankingBlock.firstChild;
+//   const currentNameNode = currentNeededNameParent.lastChild;
+//   const nextNameNode = nextNeededNameParent.lastChild;
+
+//   currentNameNode.remove();
+//   nextNameNode.remove();
+
+//   currentNeededNameParent.appendChild(nextNameNode);
+//   nextNeededNameParent.appendChild(currentNameNode);
+  
+//   //part for swapping images
+//   const currentNeededImgParent = currentRankingBlock.childNodes[1];
+//   const nextNeededImgParent = nextRankingBlock.childNodes[1];
+//   const currentImgNode = currentNeededImgParent.firstChild;
+//   const nextImgNode = nextNeededImgParent.firstChild;
+  
+//   currentImgNode.remove();
+//   nextImgNode.remove();
+
+//   currentNeededImgParent.appendChild(nextImgNode);
+//   nextNeededImgParent.appendChild(currentImgNode);
+// };
+
 function moveToTheLeft() {
-  //part for swapping names
-  const currentNeededNameParent = this.parentNode.parentNode.firstChild;
-  const previousNeededNameParent = this.parentNode.parentNode.previousSibling.firstChild;
+  const currentRankingBlock = this.parentNode.parentNode;
+  const previousRankingBlock = currentRankingBlock.previousSibling;
+  const currentNeededNameParent = currentRankingBlock.firstChild;
+  const previousNeededNameParent = previousRankingBlock.firstChild;
   const currentNameNode = currentNeededNameParent.lastChild;
   const previousNameNode = previousNeededNameParent.lastChild;
-
-  currentNameNode.remove();
-  previousNameNode.remove();
-
-  currentNeededNameParent.appendChild(previousNameNode);
-  previousNeededNameParent.appendChild(currentNameNode);
-  
-  //part for swapping images
-  const currentNeededImgParent = this.parentNode.parentNode.childNodes[1];
-  const previousNeededImgParent = this.parentNode.parentNode.previousSibling.childNodes[1];
+  const currentNeededImgParent = currentRankingBlock.childNodes[1];
+  const previousNeededImgParent = previousRankingBlock.childNodes[1];
   const currentImgNode = currentNeededImgParent.firstChild;
   const previousImgNode = previousNeededImgParent.firstChild;
-  
-  currentImgNode.remove();
-  previousImgNode.remove();
 
-  currentNeededImgParent.appendChild(previousImgNode);
-  previousNeededImgParent.appendChild(currentImgNode);
+  previousRankingBlock.style.scale = "0";
+
+  setTimeout(() => {
+    previousNameNode.remove();
+    previousImgNode.remove();
+    previousNeededNameParent.appendChild(currentNameNode.cloneNode(true));
+    previousNeededImgParent.appendChild(currentImgNode.cloneNode(true));
+    previousRankingBlock.style.scale = "1";
+    currentRankingBlock.style.scale = "0";
+  }, animationsTransitionTime);
+
+  setTimeout(() => {
+    currentNameNode.remove();
+    currentImgNode.remove();
+    currentNeededNameParent.appendChild(previousNameNode);
+    currentNeededImgParent.appendChild(previousImgNode);
+    currentRankingBlock.style.scale = "1";
+  }, 2* animationsTransitionTime);
 };
 
 function moveToTheRight() {
-  //part for swapping names
-  const currentNeededNameParent = this.parentNode.parentNode.firstChild;
-  const nextNeededNameParent = this.parentNode.parentNode.nextSibling.firstChild;
+  const currentRankingBlock = this.parentNode.parentNode;
+  const nextRankingBlock = currentRankingBlock.nextSibling;
+  const currentNeededNameParent = currentRankingBlock.firstChild;
+  const nextNeededNameParent = nextRankingBlock.firstChild;
   const currentNameNode = currentNeededNameParent.lastChild;
   const nextNameNode = nextNeededNameParent.lastChild;
-
-  currentNameNode.remove();
-  nextNameNode.remove();
-
-  currentNeededNameParent.appendChild(nextNameNode);
-  nextNeededNameParent.appendChild(currentNameNode);
-  
-  //part for swapping images
-  const currentNeededImgParent = this.parentNode.parentNode.childNodes[1];
-  const nextNeededImgParent = this.parentNode.parentNode.nextSibling.childNodes[1];
+  const currentNeededImgParent = currentRankingBlock.childNodes[1];
+  const nextNeededImgParent = nextRankingBlock.childNodes[1];
   const currentImgNode = currentNeededImgParent.firstChild;
   const nextImgNode = nextNeededImgParent.firstChild;
-  
-  currentImgNode.remove();
-  nextImgNode.remove();
 
-  currentNeededImgParent.appendChild(nextImgNode);
-  nextNeededImgParent.appendChild(currentImgNode);
+  nextRankingBlock.style.scale = "0";
+
+  setTimeout(() => {
+    nextNameNode.remove();
+    nextImgNode.remove();
+    nextNeededNameParent.appendChild(currentNameNode.cloneNode(true));
+    nextNeededImgParent.appendChild(currentImgNode.cloneNode(true));
+    nextRankingBlock.style.scale = "1";
+    currentRankingBlock.style.scale = "0";
+  }, animationsTransitionTime);
+
+  setTimeout(() => {
+    currentNameNode.remove();
+    currentImgNode.remove();
+    currentNeededNameParent.appendChild(nextNameNode);
+    currentNeededImgParent.appendChild(nextImgNode);
+    currentRankingBlock.style.scale = "1";
+  }, 2 * animationsTransitionTime);
 };
